@@ -1,4 +1,4 @@
-package com.mendesco;
+package com.java;
 
 import java.util.Scanner;
 
@@ -63,8 +63,10 @@ public class HelloWorld {
 
 		System.out.println("\n---READING, OPERATIONS AND CONDITIONALS---\n");
 
-		System.out.print("Type one number: "); // println jumps one line after log
-		float num1Var = scannerVar.nextFloat(); // nextSomething read some type of variable
+		System.out.println("Your name: ");
+		String nameVar = scannerVar.nextLine() + "\n"; // 'next()' just read one word. To read all te line, use 'nextLine()'
+		System.out.print("Type one number: "); // 'println' jumps one line after log
+		float num1Var = scannerVar.nextFloat(); // 'nextSomething' read some type of variable
 		System.out.print("Type a second number: ");
 		float num2Var = scannerVar.nextFloat();
 
@@ -101,9 +103,11 @@ public class HelloWorld {
 			break;
 
 		default:
-			finalResult = "Type 1, 2, 3 or 4";
+			finalResult = nameVar + ", type 1, 2, 3 or 4";
 		}
 
-		System.out.println(finalResult);
+		System.out.println(nameVar + finalResult);
+
+		scannerVar.close(); // close the Object to lower the memory usage
 	}
 }
