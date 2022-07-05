@@ -9,18 +9,18 @@ public class HelloWorld {
 
 		/*-------------------DATA AND VARIABLES-------------------*/
 		// integer numbers
-		byte byteVar = 127; // -128 -> 127
-		short shortVar = 1000; // -32,768 -> 32,767
-		int intVar = 1200300; // -2,147,483,648 -> 2,147,483,647
-		long longVar = 300000000; // -9,223,372,036,854,775,808 -> 9,223,372,036,854,775,807
+		byte byteVar = 127; // default: 0
+		short shortVar = 1000; // default: 0
+		int intVar = 1200300; // default: 0
+		long longVar = 300000000; // default: 0L
 		// decimal numbers
-		float floatVar = 14.8f; // 3.40282347 x 1038 -> 1.40239846 x 10-45
-		double doubleVar = 14.8290; // 1.7976931348623157 x 10308 -> 4.9406564584124654 x 10-324 | 2x more than FLOAT
+		float floatVar = 14.8f; // default: 0.0f
+		double doubleVar = 14.8290; // 2x more than FLOAT || default: 0.0d
 		// strings
-		char charVar = '0';
-		String stringVar = "Vitor";
+		char charVar = '0'; // default: '\u0000'
+		String stringVar = "Vitor"; // default: null
 		// boolean
-		boolean booleanVar = true;
+		boolean booleanVar = true; // default: false
 
 		System.out.println(
 				"---NUMBERS---\n" + 
@@ -63,50 +63,69 @@ public class HelloWorld {
 
 		System.out.println("\n---READING, OPERATIONS AND CONDITIONALS---\n");
 
-		System.out.println("Your name: ");
-		String nameVar = scannerVar.nextLine() + "\n"; // 'next()' just read one word. To read all te line, use 'nextLine()'
-		System.out.print("Type one number: "); // 'println' jumps one line after log
-		float num1Var = scannerVar.nextFloat(); // 'nextSomething' read some type of variable
-		System.out.print("Type a second number: ");
-		float num2Var = scannerVar.nextFloat();
+		System.out.print("Your name: ");
+		String nameVar = scannerVar.nextLine(); // 'next()' just read one word. To read all te line, use 'nextLine()'
 
-		System.out.print(
-				"\nNow choose an operation: \n" + 
-						"+ : 1\n" + 
-						"- : 2\n" + 
-						"x : 3\n" + 
-						"/ : 4\n"
-				);
-		byte operationVar = scannerVar.nextByte();
+		char exit;
+		do {
+			System.out.print("Type one number: "); // 'println' jumps one line after log
+			float num1Var = scannerVar.nextFloat(); // 'nextSomething' read some type of variable
+			System.out.print("Type a second number: ");
+			float num2Var = scannerVar.nextFloat();
 
-		float resultVar = num1Var;
-		String finalResult = "Result: ";
-		switch (operationVar) {
-		case 1:
-			resultVar += num2Var;
-			finalResult += String.valueOf(resultVar);
-			break;
+			byte operationVar;
+			do {
+				System.out.print(
+						"\nNow choose an operation: \n" + 
+								"+ : 1\n" + 
+								"- : 2\n" + 
+								"x : 3\n" + 
+								"/ : 4\n"
+						);
+				float resultVar = num1Var;
+				operationVar = scannerVar.nextByte();
 
-		case 2: 
-			resultVar -= num2Var;
-			finalResult += String.valueOf(resultVar);
-			break;
+				String finalResult = "\nResult: ";
+				switch (operationVar) {
+				case 1:
+					resultVar += num2Var;
+					finalResult += String.valueOf(resultVar);
+					break;
 
-		case 3: 
-			resultVar *= num2Var;
-			finalResult += String.valueOf(resultVar);
-			break;
+				case 2: 
+					resultVar -= num2Var;
+					finalResult += String.valueOf(resultVar);
+					break;
 
-		case 4: 
-			resultVar /= num2Var;
-			finalResult += String.valueOf(resultVar);
-			break;
+				case 3: 
+					resultVar *= num2Var;
+					finalResult += String.valueOf(resultVar);
+					break;
 
-		default:
-			finalResult = nameVar + ", type 1, 2, 3 or 4";
-		}
+				case 4: 
+					resultVar /= num2Var;
+					finalResult += String.valueOf(resultVar);
+					break;
 
-		System.out.println(nameVar + finalResult);
+				default:
+					finalResult = "\n"+ nameVar + ", type 1, 2, 3 or 4";
+				}
+
+				System.out.println(finalResult);
+
+			}while(operationVar < 1 || operationVar > 4);
+
+			do {
+
+				System.out.println("\nContinue application? (Y/N)");
+				exit = scannerVar.next().trim().charAt(0);
+				exit = Character.toUpperCase(exit);
+
+			}while(exit != 'Y' && exit != 'N');
+
+		}while(exit == 'Y');
+
+		System.out.println("exiting application...");
 
 		scannerVar.close(); // close the Object to lower the memory usage
 	}
